@@ -1,0 +1,34 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+LED_BRIGHTNESS	../python/goalDetector.py	/^LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest$/;"	kind:variable	line:16
+LED_CHANNEL	../python/goalDetector.py	/^LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53$/;"	kind:variable	line:18
+LED_COUNT	../python/goalDetector.py	/^LED_COUNT      = 150      # Number of LED pixels.$/;"	kind:variable	line:11
+LED_DMA	../python/goalDetector.py	/^LED_DMA        = 5       # DMA channel to use for generating signal (try 5)$/;"	kind:variable	line:15
+LED_FREQ_HZ	../python/goalDetector.py	/^LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)$/;"	kind:variable	line:14
+LED_INVERT	../python/goalDetector.py	/^LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)$/;"	kind:variable	line:17
+LED_PIN	../python/goalDetector.py	/^LED_PIN        = 18      # GPIO pin connected to the pixels (18 uses PWM!).$/;"	kind:variable	line:12
+LED_STRIP	../python/goalDetector.py	/^LED_STRIP      = ws.WS2811_STRIP_GRB   # Strip type and colour ordering$/;"	kind:variable	line:19
+LightSensor	../python/goalDetector.py	/^from gpiozero import LightSensor, OutputDevice$/;"	kind:namespace	line:3
+OutputDevice	../python/goalDetector.py	/^from gpiozero import LightSensor, OutputDevice$/;"	kind:namespace	line:3
+atexit	../python/goalDetector.py	/^import atexit$/;"	kind:namespace	line:6
+blueGoal	../python/goalDetector.py	/^def blueGoal():$/;"	kind:function	line:86
+colorWipe	../python/goalDetector.py	/^def colorWipe(strip, color, wait_ms=50):$/;"	kind:function	line:24
+diode	../python/goalDetector.py	/^    diode = OutputDevice(17)$/;"	kind:variable	line:122
+exit_handler	../python/goalDetector.py	/^def exit_handler():$/;"	kind:function	line:104
+goalDetector.py	../python/goalDetector.py	1;"	kind:file	line:1
+main	../python/goalDetector.py	/^def main():$/;"	kind:function	line:107
+rainbow	../python/goalDetector.py	/^def rainbow(strip, wait_ms=20, iterations=1):$/;"	kind:function	line:53
+rainbowCycle	../python/goalDetector.py	/^def rainbowCycle(strip, wait_ms=20, iterations=5):$/;"	kind:function	line:61
+redGoal	../python/goalDetector.py	/^def redGoal():$/;"	kind:function	line:95
+showGoal	../python/goalDetector.py	/^def showGoal(side):$/;"	kind:function	line:80
+strip	../python/goalDetector.py	/^    strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL, LED_STRIP)$/;"	kind:variable	line:127
+tableTest.py	../python/tableTest.py	1;"	kind:file	line:1
+theaterChase	../python/goalDetector.py	/^def theaterChase(strip, color, wait_ms=50, iterations=10):$/;"	kind:function	line:31
+theaterChaseRainbow	../python/goalDetector.py	/^def theaterChaseRainbow(strip, wait_ms=50):$/;"	kind:function	line:69
+threading	../python/goalDetector.py	/^import threading$/;"	kind:namespace	line:2
+time	../python/goalDetector.py	/^import time$/;"	kind:namespace	line:1
+wheel	../python/goalDetector.py	/^def wheel(pos):$/;"	kind:function	line:42

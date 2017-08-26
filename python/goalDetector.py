@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import time
 import threading
 import signal
@@ -88,7 +90,7 @@ def blueGoal(stop_event):
 
     while not stop_event.is_set():
         if ldr.wait_for_dark(1):
-            print("Blue Goal")
+            print("Blue")
             theaterChase(strip, Color(0,0,127))
 
     diode.off()
@@ -106,7 +108,7 @@ def redGoal(stop_event):
 
     while not stop_event.is_set():
         if ldr.wait_for_dark(1):
-            print("Red Goal")
+            print("Red")
             theaterChase(strip,Color(127,0,0))
 
     diode.off()
@@ -120,7 +122,7 @@ def exit_handler(signal, frame):
 
 def handle_input_command(stop_event):
     while not stop_event.is_set():
-        command = raw_input('Command:')
+        command = raw_input('')
         print command.lower()
 
         if command.lower() == "quit":

@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('backend:server');
 var http = require('http');
+var tableInterface = require('../utils/tableInterface');
 
 /**
  * Get port from environment and store in Express.
@@ -20,6 +21,15 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+
+/**
+ * Setup Foosball Table Interface
+ */
+tableInterface.initialize(server);
+tableInterface.connectToTable();
+process.on('exit', () => {
+  tableInterface.shutdown();
+});
 
 /**
  * Listen on provided port, on all network interfaces.
