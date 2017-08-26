@@ -39,7 +39,7 @@ class tableInterface {
     })
     
     this.table.stdout.on('data', (data) => {
-      console.log(`Table - stdout: ${data}`);
+      // console.log(`Table - stdout: ${data}`);
       const message = data.toString();
       if (message.includes('Red')) {
         this.broadcastData('Red');  
@@ -49,7 +49,7 @@ class tableInterface {
     });
 
     this.table.stderr.on('data', (data) => {
-      console.error(`Table - stderr: ${data}`);      
+      // console.error(`Table - stderr: ${data}`);      
     });
 
     this.table.on('close', (code) => {

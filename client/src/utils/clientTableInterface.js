@@ -1,3 +1,6 @@
+import store from '../index';
+import { redGoal, blueGoal } from '../actions';
+
 class clientTableInterface {
   constructor() {
     this.socket = null;
@@ -15,6 +18,15 @@ class clientTableInterface {
     // Listen for messages
     this.socket.addEventListener('message', (event) => {
       console.log('Message from server ', event.data);
+
+      if (event.data === 'Red') {
+        store.dispatch( redGoal() )
+      }
+
+      if (event.data === 'Blue') {
+        store.dispatch( blueGoal() )
+      }
+
     });
   }
 
