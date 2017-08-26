@@ -34,7 +34,7 @@ class Game extends Component {
           <span style={{color: 'blue', fontSize: '20rem' }}> {game.blue} </span>
         </div>
         <Button onClick={ () => this.props.history.push('/')}> Stop </Button>
-        <span> { Math.round(timer / 60) } : { timer % 60 } </span>
+        <span> { Math.trunc(timer / 60) } : { timer % 60 } </span>
       </div>
     );
   }
