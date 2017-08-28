@@ -82,7 +82,7 @@ def theaterChaseRainbow(strip, wait_ms=50):
 
 def blueGoal(stop_event):
     #setup light sensor
-    ldr = LightSensor(27,5,0.022)
+    ldr = LightSensor(27,1)
 
     #setup laser diode
     diode = OutputDevice(6)
@@ -100,7 +100,7 @@ def blueGoal(stop_event):
 
 def redGoal(stop_event):
     #setup light sensor
-    ldr = LightSensor(4,5,0.022)
+    ldr = LightSensor(4,1)
 
     #setup laser diode
     diode = OutputDevice(17)
@@ -141,8 +141,7 @@ def main():
     blue.start()
     input_thread.start()
 
-    while not _quit_event.is_set():
-        pass
+    _quit_event.wait()
 
     # wait for other threads to quit and clean up before main can exit
     red.join()
