@@ -3,8 +3,8 @@
 import time
 import threading
 import signal
-
-from gpiozero import LightSensor, OutputDevice
+from RPi import GPIO
+from gpiozero import OutputDevice
 
 from neopixel import *
 
@@ -20,6 +20,11 @@ LED_INVERT     = False   # True to invert the signal (when using NPN transistor 
 LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 LED_STRIP      = ws.WS2811_STRIP_GRB   # Strip type and colour ordering
 
+#GOAL DETECTION GPIOS
+RED_LDR_PIN    = 4
+RED_DIODE_PIN  = 17
+BLUE_LDR_PIN   = 27
+BLUE_DIODE_PIN = 6
 
 _quit_event = threading.Event()
 
@@ -81,40 +86,12 @@ def theaterChaseRainbow(strip, wait_ms=50):
 				strip.setPixelColor(i+q, 0)
 
 def blueGoal(stop_event):
-    #setup light sensor
-    ldr = LightSensor(27,1)
-
-    #setup laser diode
-    diode = OutputDevice(6)
-    diode.on()
-
-    while not stop_event.is_set():
-        if ldr.wait_for_dark(1):
-            print("Blue")
-            theaterChase(strip, Color(0,0,127))
-
-    diode.off()
-    ldr.close()
-
-    print("blue  Done")
+    print("Blue")
+    theaterChase(strip, Color(0,0,127))
 
 def redGoal(stop_event):
-    #setup light sensor
-    ldr = LightSensor(4,1)
-
-    #setup laser diode
-    diode = OutputDevice(17)
-    diode.on()
-
-    while not stop_event.is_set():
-        if ldr.wait_for_dark(1):
-            print("Red")
-            theaterChase(strip,Color(127,0,0))
-
-    diode.off()
-    ldr.close()
-
-    print("red  Done")
+    print("Red")
+    theaterChase(strip,Color(127,0,0))
 
 def exit_handler(signal, frame):
    print "Quiting!"
@@ -132,21 +109,32 @@ def handle_input_command(stop_event):
 
 def main():
 
-    red = threading.Thread(target=redGoal, args=(_quit_event,))
-    blue = threading.Thread(target=blueGoal, args=(_quit_event,))
     input_thread = threading.Thread(target=handle_input_command, args=(_quit_event,))
     input_thread.daemon = True
 
-    red.start()
-    blue.start()
     input_thread.start()
 
+    blueDiode = OutputDevice(BLUE_DIODE_PIN)
+    blueDiode.on()
+
+    redDiode = OutputDevice(RED_DIODE_PIN)
+    redDiode.on()
+
+
+    GPIO.add_event_detect(BLUE_LDR_PIN, GPIO.RISING, callback=blueGoal, bouncetime=1000)
+    GPIO.add_event_detect(RED_LDR_PIN,  GPIO.RISING, callback=redGoal,  bouncetime=1000)
+    
     _quit_event.wait()
 
+    GPIO.remove_event_detect(BLUE_DIODE_PIN)
+    GPIO.remove_event_detect(RED_DIODE_PIN)
+
+    blueDiode.off()
+    redDiode.off()
+    
     # wait for other threads to quit and clean up before main can exit
-    red.join()
-    blue.join()
     input_thread.join(2)
+    
     print("Main Done")
 
 #start process
