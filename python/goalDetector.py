@@ -4,8 +4,6 @@ import time
 import threading
 import signal
 from RPi import GPIO
-from gpiozero import OutputDevice
-
 from neopixel import *
 
 
@@ -115,26 +113,33 @@ def main():
     input_thread.start()
 
     GPIO.setmode(GPIO.BCM)
+
     GPIO.setup(BLUE_LDR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setup(BLUE_DIODE_PIN, GPIO.OUT)
+
     GPIO.setup(RED_LDR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setup(RED_DIODE_PIN, GPIO.OUT)
 
-    blueDiode = OutputDevice(BLUE_DIODE_PIN)
-    blueDiode.on()
-
-    redDiode = OutputDevice(RED_DIODE_PIN)
-    redDiode.on()
-
+    GPIO.output(BLUE_DIODE_PIN, GPIO.HIGH)
+    GPIO.output(RED_DIODE_PIN,  GPIO.HIGH)
 
     GPIO.add_event_detect(BLUE_LDR_PIN, GPIO.RISING, callback=blueGoal, bouncetime=1000)
     GPIO.add_event_detect(RED_LDR_PIN,  GPIO.RISING, callback=redGoal,  bouncetime=1000)
     
     _quit_event.wait()
 
-    GPIO.remove_event_detect(BLUE_DIODE_PIN)
-    GPIO.remove_event_detect(RED_DIODE_PIN)
+    GPIO.remove_event_detect(BLUE_LDR_PIN)
+    GPIO.remove_event_detect(RED_LDR_PIN)
 
-    blueDiode.off()
-    redDiode.off()
+    GPIO.output(BLUE_DIODE_PIN, GPIO.LOW)
+    GPIO.output(RED_DIODE_PIN,  GPIO.LOW)
+
+    GPIO.cleanup(BLUE_LDR_PIN)
+    GPIO.cleanup(BLUE_DIODE_PIN)
+
+    GPIO.cleanup(RED_LDR_PIN)
+    GPIO.cleanup(RED_DIODE_PIN)
+
     
     # wait for other threads to quit and clean up before main can exit
     input_thread.join(2)
