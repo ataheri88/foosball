@@ -114,6 +114,10 @@ def main():
 
     input_thread.start()
 
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(BLUE_LDR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setup(RED_LDR_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+
     blueDiode = OutputDevice(BLUE_DIODE_PIN)
     blueDiode.on()
 
