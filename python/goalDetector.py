@@ -27,6 +27,12 @@ BLUE_DIODE_PIN = 22
 _quit_event = threading.Event()
 
 # Define functions which animate LEDs in various ways.
+def turnLedsOff(strip):
+	for i in range(strip.numPixels()):
+		strip.setPixelColor(i,Color(0,0,0))
+	
+	strip.show()
+
 def colorWipe(strip, color, wait_ms=50):
 	"""Wipe color across display a pixel at a time."""
 	for i in range(strip.numPixels()):
@@ -86,10 +92,12 @@ def theaterChaseRainbow(strip, wait_ms=50):
 def blueGoal(stop_event):
     print("Blue")
     theaterChase(strip, Color(0,0,127))
+		turnLedsOff()
 
 def redGoal(stop_event):
     print("Red")
     theaterChase(strip,Color(127,0,0))
+		turnLedsOff()
 
 def exit_handler(signal, frame):
    print "Quiting!"
@@ -143,6 +151,8 @@ def main():
     
     # wait for other threads to quit and clean up before main can exit
     input_thread.join(2)
+
+		strip.clear();
     
     print("Main Done")
 
