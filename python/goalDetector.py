@@ -98,6 +98,7 @@ def blueGoal(stop_event):
 def redGoal(stop_event):
     print("Red")
     theaterChase(strip,Color(127,0,0))
+    turnLedsOff(strip)
 		
 
 def exit_handler(signal, frame):
@@ -152,8 +153,6 @@ def main():
     
     # wait for other threads to quit and clean up before main can exit
     input_thread.join(2)
-
-		strip.clear();
     
     print("Main Done")
 
