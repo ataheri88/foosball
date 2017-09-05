@@ -22,7 +22,7 @@ LED_STRIP      = ws.WS2811_STRIP_GRB   # Strip type and colour ordering
 RED_LDR_PIN    = 4
 RED_DIODE_PIN  = 17
 BLUE_LDR_PIN   = 27
-BLUE_DIODE_PIN = 6
+BLUE_DIODE_PIN = 22
 
 _quit_event = threading.Event()
 
