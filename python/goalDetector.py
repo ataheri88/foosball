@@ -26,6 +26,9 @@ BLUE_DIODE_PIN = 22
 
 _quit_event = threading.Event()
 
+MIN_TIME_BETWEEN_GOALS_SEC = 3
+_lastGoalTime = 0
+
 # Define functions which animate LEDs in various ways.
 def colorWipe(strip, color, wait_ms=50):
 	"""Wipe color across display a pixel at a time."""
@@ -89,17 +92,21 @@ def turnLedsOff(strip):
 	
 	strip.show()
 
-def blueGoal(stop_event):
-    print("Blue")
-    theaterChase(strip, Color(0,0,127))
-    turnLedsOff(strip)
-		
+def goalDetected(channel):
+	if (time.time() - _lastGoalTime < MIN_TIME_BETWEEN_GOALS_SEC):
+		return
 
-def redGoal(stop_event):
-    print("Red")
-    theaterChase(strip,Color(127,0,0))
-    turnLedsOff(strip)
-		
+	# Timestamp time of this goal
+	_lastGoalTime = time.time()
+
+	if (channel == BLUE_LDR_PIN):
+		print("Blue")
+  	theaterChase(strip, Color(0,0,127))
+	else:
+		print("Red")
+  	theaterChase(strip,Color(127,0,0))
+    
+	turnLedsOff(strip)
 
 def exit_handler(signal, frame):
    print "Quiting!"
@@ -133,8 +140,8 @@ def main():
     GPIO.output(BLUE_DIODE_PIN, GPIO.HIGH)
     GPIO.output(RED_DIODE_PIN,  GPIO.HIGH)
 
-    GPIO.add_event_detect(BLUE_LDR_PIN, GPIO.RISING, callback=blueGoal, bouncetime=3000)
-    GPIO.add_event_detect(RED_LDR_PIN,  GPIO.RISING, callback=redGoal,  bouncetime=3000)
+    GPIO.add_event_detect(BLUE_LDR_PIN, GPIO.RISING, callback=goalDetected, bouncetime=3000)
+    GPIO.add_event_detect(RED_LDR_PIN,  GPIO.RISING, callback=goalDetected, bouncetime=3000)
     
     _quit_event.wait()
 
