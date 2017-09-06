@@ -27,7 +27,7 @@ BLUE_DIODE_PIN = 22
 _quit_event = threading.Event()
 
 MIN_TIME_BETWEEN_GOALS_SEC = 3
-_lastGoalTime = 0
+global _lastGoalTime = 0
 
 # Define functions which animate LEDs in various ways.
 def colorWipe(strip, color, wait_ms=50):
@@ -93,6 +93,7 @@ def turnLedsOff(strip):
   strip.show()
 
 def goalDetected(channel):
+  global _lastGoalTime
   if (time.time() - _lastGoalTime < MIN_TIME_BETWEEN_GOALS_SEC):
     return
 
