@@ -29,8 +29,8 @@ class tableInterface {
     });
   }
   connectToTable() {
-    const script = path.join(__dirname, '../../python/tableTest.py')
-    //const script = path.join(__dirname, '../../python/goalDetector.py')
+    // const script = path.join(__dirname, '../../python/tableTest.py')
+    const script = path.join(__dirname, '../../python/goalDetector.py')
 
     // Need to run python script in unbufferred mode so print statements are immediately flushed to stdout
     this.table = spawn('python', ["-u", script] )
