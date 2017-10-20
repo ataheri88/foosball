@@ -4,10 +4,14 @@ import { Button } from 'reactstrap';
 
 import clientTableInterface from '../utils/clientTableInterface';
 
+import blueGoal from '../soundEffects/AnaheimDucks2017GoalHorn.mp3';
+
+
 class Game extends Component {
   constructor(props) {
     super(props);
     this.clock = null;
+    this.audioPlayer = new Audio();
     this.state = {
       timer: 0
     };
@@ -21,6 +25,15 @@ class Game extends Component {
   componentWillUnmount() {
     clientTableInterface.close();
     clearInterval(this.clock);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { game } = this.props;
+
+    if (nextProps.game.blue !== game.blue) {
+      this.audioPlayer.src = blueGoal;
+      this.audioPlayer.play();
+    }
   }
 
   render() {
