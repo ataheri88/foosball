@@ -4,9 +4,8 @@ import { Button } from 'reactstrap';
 
 import clientTableInterface from '../utils/clientTableInterface';
 
-import redGoal from '../soundEffects/AnaheimDucks2017GoalHorn.mp3';
-import blueGoal from '../soundEffects/TorontoMapleLeafs2017GoalHorn.mp3';
-
+import redGoal from '../assets/sounds/AnaheimDucks2017GoalHorn.mp3';
+import blueGoal from '../assets/sounds/TorontoMapleLeafs2017GoalHorn.mp3';
 
 class Game extends Component {
   constructor(props) {
@@ -39,26 +38,26 @@ class Game extends Component {
       this.playGoalSound(redGoal);
     }
   }
-  
+  	
   playGoalSound(sound) {
     this.audioPlayer.src = sound;
     this.audioPlayer.play();
-    setTimeout(() => this.audioPlayer && this.audioPlayer.pause(), 10 * 1000);
+    setTimeout(() => this.audioPlayer && this.audioPlayer.pause(), 15 * 1000);
   }
 
   render() {
     const { game } = this.props;
     const { timer } = this.state;
     return (
-      <div>
-        <h3> Scoreboard </h3>        
-        <div className='scoreboard' style={{}}>
-          <span style={{color: 'red',  fontSize: '20rem' }}> {game.red} </span>
-          <span style={{color: 'blue', fontSize: '20rem' }}> {game.blue} </span>
+      <div className='scoreboard' style={{}}>
+        <div className='scoreboardHeader'> Red vs Blue </div>        
+        <div className='scoreValues'>
+          <div className="scoreValue" style={{color: 'rgb(117,39,41)'}}> {game.red} </div>
+          <div className="scoreClock"> { Math.trunc(timer / 60).toString().padStart(2,"0") }:{ (timer % 60).toString().padStart(2,"0") } </div>
+          <div className="scoreValue" style={{color: 'rgb(25,25,156)'}}> {game.blue} </div>
         </div>
-        <Button onClick={ () => this.props.history.push('/')}> Stop </Button>
-        <span> { Math.trunc(timer / 60) } : { timer % 60 } </span>
-        <Button onClick={() => fetch('/api/game/table')} > Glow </Button>
+        <Button className="gameExit btn btn-danger" onClick={ () => this.props.history.push('/')}> X </Button>        
+        { /* <Button  onClick={() => fetch('/api/game/table')} > Glow </Button> */ }
       </div>
     );
   }

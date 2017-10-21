@@ -9,7 +9,7 @@ _quit_event = threading.Event()
 
 def blueGoal(stop_event):
     while not stop_event.is_set():
-        stop_event.wait(timeout=randint(1,10))
+        stop_event.wait(timeout=randint(1,20))
         print "Blue"
 
 
@@ -18,7 +18,7 @@ def blueGoal(stop_event):
 def redGoal(stop_event):
 
     while not stop_event.is_set():
-        stop_event.wait(timeout=randint(1,10))
+        stop_event.wait(timeout=randint(1,20))
         print("Red")
 
     print("Red  Done")

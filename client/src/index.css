@@ -5,5 +5,51 @@ body {
 }
 
 .scoreboard {
-  font-size: 38px;
+  display: flex;
+  flex-flow: column;
+  align-content: center;
+  height: 100vh;
+  width: 100vw;   
+  color: white;
+  background-image: url(./assets/images/foosballBackground02.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+.scoreboardHeader {
+  display: flex;
+  margin: 10px auto;
+  height: 30vh;
+  font-size: 38px; 
+}
+
+.scoreValues {
+  display: flex;
+  justify-content: space-between;
+  height: 50vh;
+  width: 100vw;
+  margin: 0 auto;
+}
+
+.scoreValue {
+  font-size:  14rem;
+  min-width: 10vw;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+
+.scoreClock {
+  font-size:  6rem;
+  width: 30vw;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+.gameExit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 5vh;
+  width: 5vw;
 }

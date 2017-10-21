@@ -37,14 +37,14 @@ def colorGlow(strip, color):
   for i in range(strip.numPixels()):
     strip.setPixelColor(i, color)
   
-  for j in range(0,360 * 3, 10):
+  for j in range(0,360 * 3):
     # range brightness between 0 and 255 (127.5 = 255 / 2)
     brightness = int(math.sin(math.radians(j)) * 127 + 127)
     print 'Brightness: ', brightness  
     # set brightness
     strip.setBrightness(brightness);
     strip.show()
-    time.sleep(0.05)
+    time.sleep(0.025)
 
   print "Done"
   turnLedsOff(strip)
@@ -124,10 +124,12 @@ def goalDetected(channel):
 
   if (channel == BLUE_LDR_PIN):
     print("Blue")
-    theaterChase(strip, Color(0,0,127))
+    #theaterChase(strip, Color(0,0,127))
+    theaterChase(strip, Color(25,25,156))
   else:
     print("Red")
-    theaterChase(strip,Color(127,0,0))
+    #theaterChase(strip,Color(127,0,0))
+    theaterChase(strip,Color(117,39,41))
 
   turnLedsOff(strip)
 
