@@ -11,6 +11,7 @@ class Game extends Component {
   constructor(props) {
     super(props);
     this.clock = null;
+    this.audioTimeout = null;
     this.audioPlayer = new Audio();
     this.state = {
       timer: 0
@@ -25,6 +26,7 @@ class Game extends Component {
   componentWillUnmount() {
     clientTableInterface.close();
     clearInterval(this.clock);
+    this.audioTimeout && clearTimeout(this.audioTimeout);
     this.audioPlayer.pause();
     this.audioPlayer = null;
   }
@@ -40,9 +42,10 @@ class Game extends Component {
   }
   	
   playGoalSound(sound) {
+    this.audioTimeout && clearTimeout(this.audioTimeout);
     this.audioPlayer.src = sound;
     this.audioPlayer.play();
-    setTimeout(() => this.audioPlayer && this.audioPlayer.pause(), 15 * 1000);
+    this.audioTimeout = setTimeout(() => this.audioPlayer && this.audioPlayer.pause(), 15 * 1000);
   }
 
   render() {
