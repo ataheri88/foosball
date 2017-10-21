@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "sudo concurrently \"npm run server\" \"npm run client\" ",
-    "server": "nodemon ./bin/www",
-    "client": "cd ../client && npm start"
+    "start": "npm run server",
+    "server": "node ./bin/www",
+    "client": "cd ../client && npm start",
+    "develop": "concurrently \"npm run server\" \"npm run client\" "
   },
   "dependencies": {
     "body-parser": "~1.17.1",
