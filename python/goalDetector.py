@@ -72,7 +72,7 @@ def theaterChase(strip, color, wait_ms=50, iterations=30):
       for i in range(0, strip.numPixels(), 3):
         strip.setPixelColor(i+q, 0)
   
-   _LEDsInUse = False
+  _LEDsInUse = False
 
 def wheel(pos):
   """Generate rainbow colors across 0-255 positions."""
