@@ -63,6 +63,12 @@ class tableInterface {
     this.table.stdin.write('quit');
     this.table.stdin.end();
   }
+
+  sendCommand(command) {
+    console.log('Sending command: ', command);
+    this.table.stdin.write(command);
+    this.table.stdin.end();
+  }
 }
 const _tableInterface = new tableInterface();
 module.exports = _tableInterface;

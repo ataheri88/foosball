@@ -6,7 +6,7 @@
     "start": "npm run server",
     "server": "node ./bin/www",
     "client": "cd ../client && npm start",
-    "develop": "concurrently \"npm run server\" \"npm run client\" "
+    "develop": "concurrently \"nodemon ./bin/www\" \"npm run client\" "
   },
   "dependencies": {
     "body-parser": "~1.17.1",

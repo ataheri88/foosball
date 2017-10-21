@@ -5,6 +5,7 @@ import threading
 import signal
 from RPi import GPIO
 from neopixel import *
+from math import sin
 
 
 # LED strip configuration:
@@ -28,6 +29,19 @@ _quit_event = threading.Event()
 
 MIN_TIME_BETWEEN_GOALS_SEC = 3
 _lastGoalTime = 0
+
+def colorGlow(strip, color):
+  for i in range(strip.numPixels()):
+    stipe.setPixelColor(i, color)
+  
+  for j in range(0,6.283, 0.001):
+    # range brightness between 0 and 255 (127.5 = 255 / 2)
+    brightness = sin(j) * 127.5 + 127.5
+    
+    # set brightness
+    stripe.setBrightness(brightness);
+
+    time.sleep(400)
 
 # Define functions which animate LEDs in various ways.
 def colorWipe(strip, color, wait_ms=50):
@@ -120,6 +134,9 @@ def handle_input_command(stop_event):
 
         if command.lower() == "quit":
             _quit_event.set()
+
+        if command.lower() == "glow":
+            colorGlow(Color(255,165,0))
 
     print "input thread quiting"
 

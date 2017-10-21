@@ -58,6 +58,7 @@ class Game extends Component {
         </div>
         <Button onClick={ () => this.props.history.push('/')}> Stop </Button>
         <span> { Math.trunc(timer / 60) } : { timer % 60 } </span>
+        <Button onClick={() => fetch('/api/game/table')} > Glow </Button>
       </div>
     );
   }
