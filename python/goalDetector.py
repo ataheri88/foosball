@@ -37,17 +37,13 @@ def colorGlow(strip, color):
   for i in range(strip.numPixels()):
     strip.setPixelColor(i, color)
   
-  for j in range(0,360 * 3):
+  for j in range(0,270 * 3):
     # range brightness between 0 and 255 (127.5 = 255 / 2)
     brightness = int(math.sin(math.radians(j)) * 127 + 127)
-    print 'Brightness: ', brightness  
     # set brightness
     strip.setBrightness(brightness);
     strip.show()
-    time.sleep(0.025)
 
-  print "Done"
-  turnLedsOff(strip)
   _LEDsInUse = False
 
 # Define functions which animate LEDs in various ways.
