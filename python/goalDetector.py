@@ -29,11 +29,11 @@ _quit_event = threading.Event()
 
 MIN_TIME_BETWEEN_GOALS_SEC = 3
 _lastGoalTime = 0
-_LEDsInUse = 0
+_LEDsInUse = False
 
 def colorGlow(strip, color):
   global _LEDsInUse
-  _LEDsInUse = 1 
+  _LEDsInUse = True 
   for i in range(strip.numPixels()):
     strip.setPixelColor(i, color)
   
@@ -48,7 +48,7 @@ def colorGlow(strip, color):
 
   print "Done"
   turnLedsOff(strip)
-  _LEDsInUse = 0
+  _LEDsInUse = False
 
 # Define functions which animate LEDs in various ways.
 def colorWipe(strip, color, wait_ms=50):
@@ -59,6 +59,7 @@ def colorWipe(strip, color, wait_ms=50):
     time.sleep(wait_ms/1000.0)
 
 def theaterChase(strip, color, wait_ms=50, iterations=50):
+   _LEDsInUse = True 
   """Movie theater light style chaser animation."""
   for j in range(iterations):
     for q in range(3):
@@ -68,6 +69,8 @@ def theaterChase(strip, color, wait_ms=50, iterations=50):
       time.sleep(wait_ms/1000.0)
       for i in range(0, strip.numPixels(), 3):
         strip.setPixelColor(i+q, 0)
+  
+   _LEDsInUse = False
 
 def wheel(pos):
   """Generate rainbow colors across 0-255 positions."""
