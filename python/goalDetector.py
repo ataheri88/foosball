@@ -5,7 +5,7 @@ import threading
 import signal
 from RPi import GPIO
 from neopixel import *
-from math import sin
+import math
 
 
 # LED strip configuration:
@@ -29,19 +29,26 @@ _quit_event = threading.Event()
 
 MIN_TIME_BETWEEN_GOALS_SEC = 3
 _lastGoalTime = 0
+_LEDsInUse = 0
 
 def colorGlow(strip, color):
+  global _LEDsInUse
+  _LEDsInUse = 1 
   for i in range(strip.numPixels()):
-    stipe.setPixelColor(i, color)
+    strip.setPixelColor(i, color)
   
-  for j in range(0,6.283, 0.001):
+  for j in range(0,360 * 3, 10):
     # range brightness between 0 and 255 (127.5 = 255 / 2)
-    brightness = sin(j) * 127.5 + 127.5
-    
+    brightness = int(math.sin(math.radians(j)) * 127 + 127)
+    print 'Brightness: ', brightness  
     # set brightness
-    stripe.setBrightness(brightness);
+    strip.setBrightness(brightness);
+    strip.show()
+    time.sleep(0.05)
 
-    time.sleep(400)
+  print "Done"
+  turnLedsOff(strip)
+  _LEDsInUse = 0
 
 # Define functions which animate LEDs in various ways.
 def colorWipe(strip, color, wait_ms=50):
@@ -108,7 +115,8 @@ def turnLedsOff(strip):
 
 def goalDetected(channel):
   global _lastGoalTime
-  if (time.time() - _lastGoalTime < MIN_TIME_BETWEEN_GOALS_SEC):
+  global _LEDsInUse
+  if (_LEDsInUse or time.time() - _lastGoalTime < MIN_TIME_BETWEEN_GOALS_SEC):
     return
 
   # Timestamp time of this goal
@@ -136,7 +144,7 @@ def handle_input_command(stop_event):
             _quit_event.set()
 
         if command.lower() == "glow":
-            colorGlow(Color(255,165,0))
+            colorGlow(strip, Color(255,165,0))
 
     print "input thread quiting"
 
