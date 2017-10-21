@@ -58,7 +58,9 @@ def colorWipe(strip, color, wait_ms=50):
     strip.show()
     time.sleep(wait_ms/1000.0)
 
-def theaterChase(strip, color, wait_ms=50, iterations=50):
+def theaterChase(strip, color, wait_ms=50, iterations=30):
+   global _LEDsInUse
+
    _LEDsInUse = True 
   """Movie theater light style chaser animation."""
   for j in range(iterations):
@@ -127,10 +129,12 @@ def goalDetected(channel):
 
   if (channel == BLUE_LDR_PIN):
     print("Blue")
-    theaterChase(strip, Color(0,0,127))    
+    theaterChase(strip, Color(0,0,127))
+    colorGlow(strip, Color(0,0,127))    
   else:
     print("Red")
     theaterChase(strip,Color(127,0,0))    
+    colorGlow(strip, Color(127,0,0))
 
   turnLedsOff(strip)
 
