@@ -27,7 +27,7 @@ BLUE_DIODE_PIN = 22
 
 _quit_event = threading.Event()
 
-MIN_TIME_BETWEEN_GOALS_SEC = 3
+MIN_TIME_BETWEEN_GOALS_SEC = 2
 _lastGoalTime = 0
 _LEDsInUse = False
 
@@ -120,9 +120,6 @@ def goalDetected(channel):
   if (_LEDsInUse or time.time() - _lastGoalTime < MIN_TIME_BETWEEN_GOALS_SEC):
     return
 
-  # Timestamp time of this goal
-  _lastGoalTime = time.time()
-
   if (channel == BLUE_LDR_PIN):
     print("Blue")
     theaterChase(strip, Color(0,0,127))
@@ -133,6 +130,9 @@ def goalDetected(channel):
     colorGlow(strip, Color(127,0,0))
 
   turnLedsOff(strip)
+
+  # Timestamp time of this goal
+  _lastGoalTime = time.time()
 
 def exit_handler(signal, frame):
    print "Quiting!"
