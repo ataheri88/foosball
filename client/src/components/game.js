@@ -4,7 +4,8 @@ import { Button } from 'reactstrap';
 
 import clientTableInterface from '../utils/clientTableInterface';
 
-import blueGoal from '../soundEffects/AnaheimDucks2017GoalHorn.mp3';
+import redGoal from '../soundEffects/AnaheimDucks2017GoalHorn.mp3';
+import blueGoal from '../soundEffects/TorontoMapleLeafs2017GoalHorn.mp3';
 
 
 class Game extends Component {
@@ -25,15 +26,24 @@ class Game extends Component {
   componentWillUnmount() {
     clientTableInterface.close();
     clearInterval(this.clock);
+    this.audioPlayer.pause();
+    this.audioPlayer = null;
   }
 
   componentWillReceiveProps(nextProps) {
     const { game } = this.props;
 
     if (nextProps.game.blue !== game.blue) {
-      this.audioPlayer.src = blueGoal;
-      this.audioPlayer.play();
+      this.playGoalSound(blueGoal);
+    } else if (nextProps.game.red !== game.red) {
+      this.playGoalSound(redGoal);
     }
+  }
+  
+  playGoalSound(sound) {
+    this.audioPlayer.src = sound;
+    this.audioPlayer.play();
+    setTimeout(() => this.audioPlayer && this.audioPlayer.pause(), 10 * 1000);
   }
 
   render() {
