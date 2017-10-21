@@ -59,9 +59,9 @@ def colorWipe(strip, color, wait_ms=50):
     time.sleep(wait_ms/1000.0)
 
 def theaterChase(strip, color, wait_ms=50, iterations=30):
-   global _LEDsInUse
+  global _LEDsInUse
+  _LEDsInUse = True
 
-   _LEDsInUse = True 
   """Movie theater light style chaser animation."""
   for j in range(iterations):
     for q in range(3):
