@@ -47,13 +47,13 @@ def colorGlow(strip, color):
   _LEDsInUse = False
 
 # Define functions which animate LEDs in various ways.
-def colorWipe(strip, color, wait_ms=50):
+def colorWipe(strip, color, wait_ms=50, startPixel=0):
   global _LEDsInUse
   _LEDsInUse = True
   
   """Wipe color across display a pixel at a time."""
   for i in range(strip.numPixels()):
-    strip.setPixelColor(i, color)
+    strip.setPixelColor((i + startPixel) % strip.numPixels(), color)
     strip.show()
     time.sleep(wait_ms/1000.0)
 
@@ -128,12 +128,12 @@ def goalDetected(channel):
   if (channel == BLUE_LDR_PIN):
     print("Blue")
     #theaterChase(strip, Color(0,0,127))
-    colorWipe(strip, Color(0,0,127), 10);
+    colorWipe(strip, Color(0,0,127), 15, strip.numPixels() / 2 - 15);
     colorGlow(strip, Color(0,0,127))    
   else:
     print("Red")
     #theaterChase(strip,Color(127,0,0)) 
-    colorWipe(strip, Color(127,0,0), 10);   
+    colorWipe(strip, Color(127,0,0), 15);   
     colorGlow(strip, Color(127,0,0))
 
   turnLedsOff(strip)
