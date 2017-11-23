@@ -176,8 +176,8 @@ def main():
     GPIO.output(BLUE_DIODE_PIN, GPIO.HIGH)
     GPIO.output(RED_DIODE_PIN,  GPIO.HIGH)
 
-    GPIO.add_event_detect(BLUE_LDR_PIN, GPIO.RISING, callback=goalDetected, bouncetime=3000)
-    GPIO.add_event_detect(RED_LDR_PIN,  GPIO.RISING, callback=goalDetected, bouncetime=3000)
+    GPIO.add_event_detect(BLUE_LDR_PIN, GPIO.RISING, callback=goalDetected, bouncetime=10000)
+    GPIO.add_event_detect(RED_LDR_PIN,  GPIO.RISING, callback=goalDetected, bouncetime=10000)
 
     _quit_event.wait()
 
